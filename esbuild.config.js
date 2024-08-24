@@ -42,6 +42,23 @@ async function watch() {
   const ctx = await esbuild.context(options);
   await ctx.watch();
   console.log('Watching for file changes...');
+
+  // --- No way to get the output files from `watch` mode ---
+  // await ctx.rebuild().then(result => {
+  //   if (result.errors.length > 0) {
+  //     console.error('Build failed with errors:');
+  //     console.error(result.errors);
+  //   } else {
+  //     console.log('Build succeeded:');
+  //     // Comme `result.outputFiles` n'est pas disponible, vous pouvez simplement afficher un message ou d'autres informations.
+  //     // Pour obtenir les fichiers générés, vous devrez le faire manuellement car `result` ne contient pas directement `outputFiles`.
+  //     // Par exemple, vous pouvez afficher les fichiers sortis de `outdir`.
+  //     console.log('Output files:');
+  //     result.outputFiles?.forEach(file => {
+  //       console.log(`  ${file.path}  ${file.contents.length} bytes`);
+  //     });
+  //   }
+  // });
 }
 
 async function build() {
