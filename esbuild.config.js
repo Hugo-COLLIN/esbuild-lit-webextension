@@ -27,6 +27,7 @@ esbuild.build({
     generateManifestPlugin(targetBrowser),
     generateAppInfosPlugin(process.env.NODE_ENV),
     generateLicensesPlugin(),
+    copyStaticFilesPlugin(['public']) //'src/manifest.json'
   ]
 }).then(() => {
   // fill .then will break generateLicensesPlugin generation because it used exec()
