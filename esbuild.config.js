@@ -2,7 +2,7 @@ const esbuild = require('esbuild');
 const chokidar = require('chokidar');
 const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManifestPlugin");
 const {generateAppInfosPlugin} = require("./config/esbuild/plugins/generateAppInfosPlugin");
-const {generateLicensesPlugin} = require("./config/esbuild/plugins/generateLicensesList");
+const {generateLicensesPlugin} = require("./config/esbuild/plugins/generateLicensesListPlugin");
 const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFilesPlugin");
 const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
 
@@ -54,17 +54,6 @@ async function watch() {
 
   // Watch for changes in the 'public' folder
   watchDir(ctx);
-
-  // // Watch for changes in the `public` directory
-  // chokidar.watch('public').on('ready', async (path, details) => {
-  //   console.log(`Detected changes on ${path || 'public'}, rebuilding...`);
-  //   try {
-  //     await ctx.rebuild();
-  //     console.log('Rebuild completed successfully');
-  //   } catch (error) {
-  //     console.error('Rebuild failed:', error);
-  //   }
-  // });
 
   // --- No way to list the output files from `watch` mode ---
   // await ctx.rebuild().then(result => {
