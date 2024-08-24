@@ -1,6 +1,6 @@
 {
   "name": "webextension-lit",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "scripts": {
     "build:chrome": "cross-env TARGET=chrome APP_MODE=dev node esbuild.config.js",
     "build:firefox": "cross-env TARGET=firefox APP_MODE=dev node esbuild.config.js",
@@ -22,5 +22,11 @@
     "esbuild": "^0.23.1",
     "lit": "^3.2.0",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "dompurify": "^3.1.6",
+    "js-yaml": "^4.1.0",
+    "showdown": "^2.1.0",
+    "turndown": "^7.2.0"
   }
 }
