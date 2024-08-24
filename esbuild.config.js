@@ -12,7 +12,7 @@ const appMode = process.env.APP_MODE || 'dev';
 const watchMode = process.env.WATCH_MODE || false; // Flag for watch mode
 
 const options = {
-  entryPoints: ['src/background.js', 'src/my-element.ts', 'src/popup.html'],
+  entryPoints: ['src/background.js', "src/tab.ts", 'src/my-element.ts', 'src/popup.html'],
   bundle: true,
   outdir: outdir,
   minify: false,
