@@ -1,18 +1,21 @@
 const esbuild = require('esbuild');
+const fs = require('fs');
 const chokidar = require('chokidar');
 const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManifestPlugin");
 const {generateAppInfosPlugin} = require("./config/esbuild/plugins/generateAppInfosPlugin");
 const {generateLicensesPlugin} = require("./config/esbuild/plugins/generateLicensesList");
 const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFilesPlugin");
+const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
 
+const outdir = 'dist';
 const targetBrowser = process.env.TARGET || 'chrome';
 const appMode = process.env.APP_MODE || 'dev';
 const watchMode = process.env.WATCH_MODE || false; // Flag for watch mode
 
 const options = {
-  entryPoints: ['src/background.ts', 'src/my-element.ts', 'src/popup.html'],
+  entryPoints: ['src/background.js', 'src/my-element.ts', 'src/popup.html'],
   bundle: true,
-  outdir: 'dist',
+  outdir: outdir,
   minify: false,
   sourcemap: false,
   target: ['chrome89', 'firefox89'],
@@ -24,6 +27,7 @@ const options = {
   },
   entryNames: '[name]',
   plugins: [
+    cleanDirectoryPlugin(outdir),
     generateManifestPlugin(targetBrowser),
     generateAppInfosPlugin(appMode),
     generateLicensesPlugin(),
