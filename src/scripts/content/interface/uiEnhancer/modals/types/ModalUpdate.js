@@ -31,7 +31,7 @@ export default class ModalUpdate extends Modal {
 
     const modalSubtitleDiv = document.createElement('div');
     modalSubtitleDiv.classList.add('mb-5', 'modal-title', 'h3');
-    modalSubtitleDiv.innerHTML = `What's new in ${appInfos.APP_NAME} v${appInfos.APP_VERSION}:`;
+    modalSubtitleDiv.innerHTML = `What's new in ${appInfos.APP_NAME} v${APP_VERSION}:`;
 
     const innerDivLink = document.createElement('a');
     innerDivLink.target = '_blank';

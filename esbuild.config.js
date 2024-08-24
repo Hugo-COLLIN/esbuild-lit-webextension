@@ -1,7 +1,6 @@
 const esbuild = require('esbuild');
 const chokidar = require('chokidar');
 const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManifestPlugin");
-const {generateAppInfosPlugin} = require("./config/esbuild/plugins/generateAppInfosPlugin");
 const {generateLicensesPlugin} = require("./config/esbuild/plugins/generateLicensesListPlugin");
 const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFilesPlugin");
 const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
@@ -26,10 +25,14 @@ const options = {
     '.html': 'copy',
   },
   entryNames: '[name]',
+  define: {
+    'APP_MODE': `"${appMode}"`,
+    'APP_TARGET': `"${targetBrowser}"`,
+    'APP_VERSION': `"${require('./package.json').version}"`,
+  },
   plugins: [
     cleanDirectoryPlugin(outdir),
     generateManifestPlugin(targetBrowser),
-    generateAppInfosPlugin(appMode),
     generateLicensesPlugin(),
     copyStaticFilesPlugin(['public']),
   ],
