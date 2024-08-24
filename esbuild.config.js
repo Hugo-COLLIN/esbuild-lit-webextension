@@ -8,6 +8,7 @@ const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFile
 
 // Détecter le navigateur cible
 const targetBrowser = process.env.TARGET || 'chrome';
+const appMode = process.env.APP_MODE || 'dev';
 
 esbuild.build({
   entryPoints: ['src/background.ts', 'src/my-element.ts', 'src/popup.html'],
@@ -25,7 +26,7 @@ esbuild.build({
   entryNames: '[name]',
   plugins: [
     generateManifestPlugin(targetBrowser),
-    generateAppInfosPlugin(process.env.NODE_ENV),
+    generateAppInfosPlugin(appMode),
     generateLicensesPlugin(),
     copyStaticFilesPlugin(['public']) //'src/manifest.json'
   ]

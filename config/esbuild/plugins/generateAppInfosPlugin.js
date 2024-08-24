@@ -12,7 +12,7 @@ function generateAppInfosPlugin(app_mode) {
         const infosPath = path.join(process.cwd(), 'src', 'infos.json');
 
         const pkg = readJsonFile(pkgPath);
-        const appMode = app_mode === 'production' ? {"APP_MODE": 'prod'} : {"APP_MODE": 'dev'};
+        const appMode = {APP_MODE: app_mode || 'dev'};
 
         const appInfos = {
           "APP_VERSION": pkg.version,
