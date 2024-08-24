@@ -1,4 +1,5 @@
 const esbuild = require('esbuild');
+const chokidar = require('chokidar');
 const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManifestPlugin");
 const {generateAppInfosPlugin} = require("./config/esbuild/plugins/generateAppInfosPlugin");
 const {generateLicensesPlugin} = require("./config/esbuild/plugins/generateLicensesList");
@@ -38,12 +39,31 @@ job().catch((error) => {
   process.exit(1);
 });
 
+async function build() {
+  await esbuild.build(options);
+  console.log('Build completed successfully');
+}
+
 async function watch() {
   const ctx = await esbuild.context(options);
   await ctx.watch();
   console.log('Watching for file changes...');
 
-  // --- No way to get the output files from `watch` mode ---
+  // Watch for changes in the 'public' folder
+  watchDir(ctx);
+
+  // // Watch for changes in the `public` directory
+  // chokidar.watch('public').on('ready', async (path, details) => {
+  //   console.log(`Detected changes on ${path || 'public'}, rebuilding...`);
+  //   try {
+  //     await ctx.rebuild();
+  //     console.log('Rebuild completed successfully');
+  //   } catch (error) {
+  //     console.error('Rebuild failed:', error);
+  //   }
+  // });
+
+  // --- No way to list the output files from `watch` mode ---
   // await ctx.rebuild().then(result => {
   //   if (result.errors.length > 0) {
   //     console.error('Build failed with errors:');
@@ -61,7 +81,27 @@ async function watch() {
   // });
 }
 
-async function build() {
-  await esbuild.build(options);
-  console.log('Build completed successfully');
+function watchDir(ctx) {
+  const watcher = chokidar.watch('public', {
+    ignoreInitial: true, // Ignore initial 'add' events on startup
+  });
+
+  let rebuildPending = false;
+
+  watcher.on('all', async (event, path) => {
+    if (!rebuildPending) {
+      rebuildPending = true;
+      console.log(`Detected ${event} on ${path}, scheduling rebuild...`);
+      setTimeout(async () => {
+        try {
+          await ctx.rebuild();
+          console.log('Rebuild completed successfully');
+        } catch (error) {
+          console.error('Rebuild failed:', error);
+        } finally {
+          rebuildPending = false;
+        }
+      }, 100); // Debounce delay to batch file changes
+    }
+  });
 }

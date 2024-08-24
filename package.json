@@ -17,6 +17,7 @@
   "devDependencies": {
     "@types/chrome": "^0.0.270",
     "adm-zip": "^0.5.15",
+    "chokidar": "^3.6.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.23.1",
     "lit": "^3.2.0",
