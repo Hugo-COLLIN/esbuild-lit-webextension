@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const {readJsonFile, writeJsonFile} = require("./jsonUtils");
+const {readJsonFile, writeJsonFile} = require("../../utils/jsonUtils");
 
 function generateAppInfosPlugin(app_mode) {
   return {

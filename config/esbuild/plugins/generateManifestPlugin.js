@@ -1,5 +1,5 @@
 const path = require('path');
-const {readJsonFile, writeJsonFile} = require("./jsonUtils");
+const {readJsonFile, writeJsonFile} = require("../../utils/jsonUtils");
 
 
 // Plugin pour générer le manifeste
