@@ -86,3 +86,6 @@ typings/
 .idea
 *.iml
 dist/
+
+*key.json
+*publish.json
