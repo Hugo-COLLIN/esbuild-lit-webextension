@@ -1,5 +1,4 @@
 const esbuild = require('esbuild');
-const fs = require('fs');
 const chokidar = require('chokidar');
 const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManifestPlugin");
 const {generateAppInfosPlugin} = require("./config/esbuild/plugins/generateAppInfosPlugin");

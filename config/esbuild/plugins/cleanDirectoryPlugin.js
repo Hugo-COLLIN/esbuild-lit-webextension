@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 function cleanDirectoryPlugin(directory) {
   return {
     name: 'clean-directory',

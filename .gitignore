@@ -87,5 +87,6 @@ typings/
 *.iml
 dist/
 
-*key.json
+*config.json
 *publish.json
+*key.json
