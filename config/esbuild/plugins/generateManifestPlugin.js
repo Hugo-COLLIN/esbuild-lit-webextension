@@ -1,8 +1,6 @@
 const path = require('path');
-const {readJsonFile, writeJsonFile} = require("../../utils/jsonUtils");
+const { readJsonFile, writeJsonFile } = require("../../utils/jsonUtils");
 
-
-// Plugin pour générer le manifeste
 function generateManifestPlugin(targetBrowser) {
   return {
     name: 'generate-manifest',
@@ -15,55 +13,40 @@ function generateManifestPlugin(targetBrowser) {
         const srcManifest = readJsonFile(srcManifestPath);
         const pkg = readJsonFile(pkgPath);
 
-        const mv = srcManifest[`{{${targetBrowser}}}.manifest_version`];
+        let manifest = {};
 
-        let mvAttributes = {};
-        if (mv === 3) {
-          mvAttributes = {
-            action: srcManifest[`{{${targetBrowser}}}.action`],
-            host_permissions: srcManifest.host_permissions || ["http://localhost/*"],
-          };
-        } else if (mv === 2) {
-          mvAttributes = {
-            browser_action: srcManifest[`{{${targetBrowser}}}.action`]
-          };
-        }
+        // Ensure manifest_version is correctly set
+        manifest.manifest_version = srcManifest[`{{${targetBrowser}}}.manifest_version`] || 3;
 
-        let browserAttributes = {};
-        if (targetBrowser === 'firefox') {
-          browserAttributes = {
-            background: {
-              scripts: srcManifest.background['{{firefox}}.scripts']
-            },
-            ...(srcManifest['browser_specific_settings'] && srcManifest['browser_specific_settings']['gecko'] && {
-              browser_specific_settings: {
-                gecko: srcManifest['browser_specific_settings']['gecko']
+        manifest['name'] = srcManifest['name'] || pkg.name;
+        manifest['version'] = srcManifest['version'] || pkg.version;
+        manifest['description'] = srcManifest['description'] || pkg.description;
+
+        // Function to recursively process each property
+        function processObject(obj, targetObj) {
+          for (const key in obj) {
+            const isBrowserSpecificKey = key.startsWith(`{{${targetBrowser}}}`);
+            const cleanKey = key.replace(`{{${targetBrowser}}}.`, '');
+
+            if (isBrowserSpecificKey) {
+              if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+                targetObj[cleanKey] = {};
+                processObject(obj[key], targetObj[cleanKey]);
+              } else {
+                targetObj[cleanKey] = obj[key];
               }
-            })
-          };
-        } else if (targetBrowser === 'chrome') {
-          browserAttributes = {
-            background: {
-              service_worker: srcManifest.background['{{chrome}}.service_worker']
+            } else if (!key.includes('{{')) {
+              if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+                targetObj[key] = {};
+                processObject(obj[key], targetObj[key]);
+              } else {
+                targetObj[key] = obj[key];
+              }
             }
-          };
+          }
         }
 
-        const manifest = {
-          manifest_version: mv,
-          name: srcManifest['name'] || pkg.name,
-          version: pkg.version,
-          description: srcManifest.description,
-          icons: srcManifest.icons,
-          content_scripts: srcManifest.content_scripts,
-          web_accessible_resources: srcManifest.web_accessible_resources,
-          permissions: srcManifest.permissions,
-          content_security_policy: srcManifest.content_security_policy && mv === 3
-            ? {extension_pages: srcManifest.content_security_policy}
-            : srcManifest.content_security_policy,
-          ...mvAttributes,
-          ...browserAttributes,
-        };
+        processObject(srcManifest, manifest);
 
         writeJsonFile(distManifestPath, manifest);
       });
@@ -71,4 +54,4 @@ function generateManifestPlugin(targetBrowser) {
   };
 }
 
-module.exports = {generateManifestPlugin};
+module.exports = { generateManifestPlugin };
