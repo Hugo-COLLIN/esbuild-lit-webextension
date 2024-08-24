@@ -6,7 +6,8 @@
     "build:firefox": "cross-env TARGET=firefox APP_MODE=dev node esbuild.config.js",
     "dev:chrome": "cross-env TARGET=chrome APP_MODE=dev WATCH_MODE=true node esbuild.config.js",
     "dev:firefox": "cross-env TARGET=firefox APP_MODE=dev WATCH_MODE=true node esbuild.config.js",
-    "clean": "rm -rf dist",
+    "zip": "node config/zip.js",
+    "prod": "cross-env TARGET=chrome APP_MODE=prod node esbuild.config.js && node config/zip.js && cross-env TARGET=firefox APP_MODE=prod node esbuild.config.js && node config/zip.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,6 +16,7 @@
   "description": "",
   "devDependencies": {
     "@types/chrome": "^0.0.270",
+    "adm-zip": "^0.5.15",
     "cross-env": "^7.0.3",
     "esbuild": "^0.23.1",
     "lit": "^3.2.0",
