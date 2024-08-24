@@ -2,7 +2,7 @@ const esbuild = require('esbuild');
 const fs = require('fs');
 const path = require('path');
 
-// Copier les fichiers statiques (HTML, manifest)
+// Copy static files
 const copyStaticFiles = (staticFiles) => {
   staticFiles.forEach((file) => {
     const filePath = path.resolve(__dirname, file);
@@ -11,7 +11,7 @@ const copyStaticFiles = (staticFiles) => {
   });
 };
 
-// Configuration d'Esbuild
+// Esbuild Configuration
 esbuild.build({
   entryPoints: ['src/background.ts', 'src/my-element.ts', 'src/popup.html'],
   bundle: true,
