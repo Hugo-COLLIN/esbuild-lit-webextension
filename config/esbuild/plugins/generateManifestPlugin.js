@@ -1,5 +1,5 @@
 const path = require('path');
-const { readJsonFile, writeJsonFile } = require("../../utils/jsonUtils");
+const {readJsonFile, writeJsonFile} = require("../../utils/jsonUtils");
 
 function generateManifestPlugin(targetBrowser) {
   return {
@@ -28,20 +28,20 @@ function generateManifestPlugin(targetBrowser) {
             const isBrowserSpecificKey = key.startsWith(`{{${targetBrowser}}}`);
             const cleanKey = key.replace(`{{${targetBrowser}}}.`, '');
 
+            let manifestKey;
             if (isBrowserSpecificKey) {
-              if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
-                targetObj[cleanKey] = {};
-                processObject(obj[key], targetObj[cleanKey]);
-              } else {
-                targetObj[cleanKey] = obj[key];
-              }
-            } else if (!key.includes('{{')) {
-              if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
-                targetObj[key] = {};
-                processObject(obj[key], targetObj[key]);
-              } else {
-                targetObj[key] = obj[key];
-              }
+              manifestKey = cleanKey;
+            } else if (!key.startsWith('{{')) {
+              manifestKey = key;
+            } else {
+              continue;
+            }
+
+            if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+              targetObj[manifestKey] = {};
+              processObject(obj[key], targetObj[manifestKey]);
+            } else {
+              targetObj[manifestKey] = obj[key];
             }
           }
         }
@@ -54,4 +54,4 @@ function generateManifestPlugin(targetBrowser) {
   };
 }
 
-module.exports = { generateManifestPlugin };
+module.exports = {generateManifestPlugin};
