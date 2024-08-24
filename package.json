@@ -1,17 +1,19 @@
 {
   "name": "webextension-lit",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "build": "node esbuild.config.js",
+    "build:chrome": "cross-env TARGET=chrome node esbuild.config.js",
+    "build:firefox": "cross-env TARGET=firefox node esbuild.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "description": "",
   "devDependencies": {
     "@types/chrome": "^0.0.270",
+    "cross-env": "^7.0.3",
     "esbuild": "^0.23.1",
     "lit": "^3.2.0",
     "typescript": "^5.5.4"

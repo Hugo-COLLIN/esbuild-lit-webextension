@@ -30,5 +30,9 @@ esbuild.build({
     copyStaticFilesPlugin(['public']) //'src/manifest.json'
   ]
 }).then(() => {
-  // fill .then will break generateLicensesPlugin generation because it used exec()
-}).catch(() => process.exit(1));
+  // fill .then will break generateLicensesPlugin generation (?)
+}).catch((error) => {
+  console.error('Build failed:', error);
+  console.error('Stack Trace:', error.stack);
+  process.exit(1)
+});

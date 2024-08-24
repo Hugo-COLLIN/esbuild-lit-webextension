@@ -35,7 +35,7 @@ function generateManifestPlugin(targetBrowser) {
             background: {
               scripts: srcManifest.background['{{firefox}}.scripts']
             },
-            ...(srcManifest['browser_specific_settings']['gecko'] && {
+            ...(srcManifest['browser_specific_settings'] && srcManifest['browser_specific_settings']['gecko'] && {
               browser_specific_settings: {
                 gecko: srcManifest['browser_specific_settings']['gecko']
               }
