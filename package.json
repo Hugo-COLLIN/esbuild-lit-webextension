@@ -2,10 +2,11 @@
   "name": "webextension-lit",
   "version": "1.0.0",
   "scripts": {
-    "build": "node esbuild.config.js",
     "build:chrome": "cross-env TARGET=chrome APP_MODE=dev node esbuild.config.js",
     "build:firefox": "cross-env TARGET=firefox APP_MODE=dev node esbuild.config.js",
-    "dev": "cross-env APP_MODE=dev node esbuild.config.js",
+    "dev:chrome": "cross-env TARGET=chrome APP_MODE=dev WATCH_MODE=true node esbuild.config.js",
+    "dev:firefox": "cross-env TARGET=firefox APP_MODE=dev WATCH_MODE=true node esbuild.config.js",
+    "clean": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
