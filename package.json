@@ -1,6 +1,9 @@
 {
-  "name": "webextension-lit",
-  "version": "1.0.2",
+  "name": "save-my-chatbot",
+  "version": "2.9.7",
+  "license": "RMD-C v1.0 License",
+  "author": "Hugo COLLIN",
+  "keywords": ["chatbots", "export", "save", "markdown", "webextension"],
   "scripts": {
     "build:chrome": "cross-env TARGET=chrome APP_MODE=dev node esbuild.config.js",
     "build:firefox": "cross-env TARGET=firefox APP_MODE=dev node esbuild.config.js",
@@ -11,10 +14,6 @@
     "test": "vitest",
     "test:watch": "vitest --watch"
   },
-  "keywords": [],
-  "author": "",
-  "license": "UNLICENSED",
-  "description": "",
   "devDependencies": {
     "@types/chrome": "^0.0.270",
     "@vitest/browser": "^2.0.5",
