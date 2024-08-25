@@ -18,7 +18,7 @@ export async function launchIconClickAction(tab) {
 
     await chrome.scripting.executeScript({
       target: {tabId: tab.id},
-      files: ['src/tab.js']
+      files: ['tab.js']
     });
 
   } catch (error) {
