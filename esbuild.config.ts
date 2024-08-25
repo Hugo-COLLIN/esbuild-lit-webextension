@@ -1,16 +1,17 @@
-const esbuild = require('esbuild');
-const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManifestPlugin");
-const {generateLicensesPlugin} = require("./config/esbuild/plugins/generateLicensesListPlugin");
-const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFilesPlugin");
-const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
-const {watchStatic} = require("./config/esbuild/watchStatic");
+import esbuild from 'esbuild';
+import { generateManifestPlugin } from './config/esbuild/plugins/generateManifestPlugin.ts';
+import { generateLicensesPlugin } from './config/esbuild/plugins/generateLicensesListPlugin.ts';
+import { copyStaticFilesPlugin } from './config/esbuild/plugins/copyStaticFilesPlugin.ts';
+import { cleanDirectoryPlugin } from './config/esbuild/plugins/cleanDirectoryPlugin.ts';
+import { watchStatic } from './config/esbuild/watchStatic.ts';
+import packageJson from './package.json' assert { type: 'json' };
 
 const outdir = 'dist';
 const targetBrowser = process.env.TARGET || 'chrome';
 const appMode = process.env.APP_MODE || 'dev';
 const watchMode = process.env.WATCH_MODE || false; // Flag for watch mode
 
-const options = {
+const options: esbuild.BuildOptions = {
   entryPoints: ['src/background.js', "src/tab.js", 'src/my-element.ts', 'src/popup.html'],
   bundle: true,
   outdir: outdir,
@@ -22,13 +23,13 @@ const options = {
   logLevel: 'info',
   loader: {
     '.ts': 'ts',
-    '.html': 'copy',
+    '.html': 'text',
   },
   entryNames: '[name]',
   define: {
     'APP_MODE': `"${appMode}"`,
     'APP_TARGET': `"${targetBrowser}"`,
-    'APP_VERSION': `"${require('./package.json').version}"`,
+    'APP_VERSION': `"${packageJson.version}"`,
   },
   plugins: [
     cleanDirectoryPlugin(outdir),

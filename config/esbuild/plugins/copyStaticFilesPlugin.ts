@@ -1,10 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const copyStaticFilesPlugin = (staticFiles) => {
+export const copyStaticFilesPlugin = (staticFiles: string[]) => {
   return {
     name: 'copy-static-files',
-    setup(build) {
+    setup(build: { onEnd: (arg0: () => void) => void; }) {
       build.onEnd(() => {
         staticFiles.forEach((file) => {
           const filePath = path.resolve(process.cwd(), file);
@@ -15,5 +15,3 @@ const copyStaticFilesPlugin = (staticFiles) => {
     }
   };
 };
-
-module.exports = { copyStaticFilesPlugin };

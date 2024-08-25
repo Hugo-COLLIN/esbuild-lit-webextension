@@ -1,13 +1,14 @@
 {
   "name": "webextension-lit",
   "version": "1.0.2",
+  "type": "module",
   "scripts": {
-    "build:chrome": "cross-env TARGET=chrome APP_MODE=dev node esbuild.config.ts",
+    "build:chrome": "cross-env TARGET=chrome APP_MODE=dev ts-node-esm esbuild.config.ts",
     "build:firefox": "cross-env TARGET=firefox APP_MODE=dev node esbuild.config.ts",
     "dev:chrome": "cross-env TARGET=chrome APP_MODE=dev WATCH_MODE=true node esbuild.config.ts",
     "dev:firefox": "cross-env TARGET=firefox APP_MODE=dev WATCH_MODE=true node esbuild.config.ts",
     "zip": "node config/zip.js",
-    "prod": "cross-env TARGET=chrome APP_MODE=prod node esbuild.config.ts && node config/zip.js && cross-env TARGET=firefox APP_MODE=prod node esbuild.config.ts && node config/zip.js",
+    "prod": "cross-env TARGET=chrome APP_MODE=prod node esbuild.config.ts && node config/zip.js && cross-env TARGET=firefox APP_MODE=prod node esbuild.config.ts && node config/zip.js"
   },
   "keywords": [],
   "author": "",
@@ -15,12 +16,15 @@
   "description": "",
   "devDependencies": {
     "@types/chrome": "^0.0.270",
+    "@vitest/browser": "^2.0.5",
     "adm-zip": "^0.5.15",
     "chokidar": "^3.6.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.23.1",
     "lit": "^3.2.0",
-    "typescript": "^5.5.4"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   },
   "dependencies": {
     "dompurify": "^3.1.6",

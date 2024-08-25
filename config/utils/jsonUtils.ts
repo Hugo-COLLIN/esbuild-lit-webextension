@@ -1,16 +1,11 @@
-const fs = require("fs");
+import fs from "fs";
 
-function readJsonFile(filePath) {
+export function readJsonFile(filePath: string) {
   const json = fs.readFileSync(filePath, 'utf8');
   return JSON.parse(json);
 }
 
-function writeJsonFile(filePath, data) {
+export function writeJsonFile(filePath: string, data: any) {
   const json = JSON.stringify(data, null, 2);
   fs.writeFileSync(filePath, json, 'utf8');
 }
-
-module.exports = {
-  readJsonFile,
-  writeJsonFile
-};

@@ -1,13 +1,13 @@
-const chokidar = require("chokidar");
+import chokidar from "chokidar";
 
-function watchStatic(ctx) {
+export function watchStatic(ctx: { rebuild: () => any; }) {
   const watcher = chokidar.watch('public', {
     ignoreInitial: true, // Ignore initial 'add' events on startup
   });
 
   let rebuildPending = false;
 
-  watcher.on('all', async (event, path) => {
+  watcher.on('all', async (event: any, path: string) => {
     if (!rebuildPending) {
       rebuildPending = true;
       console.log(`Detected ${event} on ${path}, scheduling rebuild...`);
@@ -24,5 +24,3 @@ function watchStatic(ctx) {
     }
   });
 }
-
-module.exports = {watchStatic};

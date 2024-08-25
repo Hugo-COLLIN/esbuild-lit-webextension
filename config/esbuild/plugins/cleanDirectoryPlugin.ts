@@ -1,14 +1,12 @@
-const fs = require('fs');
+import fs from 'fs';
 
-function cleanDirectoryPlugin(directory) {
+export function cleanDirectoryPlugin(directory: string) {
   return {
     name: 'clean-directory',
-    setup(build) {
+    setup(build: { onStart: (arg0: () => void) => void; }) {
       build.onStart(() => {
         fs.rmSync(directory, {recursive: true, force: true});
       });
     },
   };
 }
-
-module.exports = {cleanDirectoryPlugin};

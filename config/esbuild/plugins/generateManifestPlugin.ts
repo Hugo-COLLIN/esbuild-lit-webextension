@@ -1,10 +1,10 @@
-const path = require('path');
-const {readJsonFile, writeJsonFile} = require("../../utils/jsonUtils");
+import path from 'path';
+import {readJsonFile, writeJsonFile} from "../../utils/jsonUtils.ts";
 
-function generateManifestPlugin(targetBrowser) {
+export function generateManifestPlugin(targetBrowser: string) {
   return {
     name: 'generate-manifest',
-    setup(build) {
+    setup(build: { onEnd: (arg0: () => void) => void; }) {
       build.onEnd(() => {
         const srcManifestPath = path.join(process.cwd(), 'src', 'manifest.json');
         const distManifestPath = path.join(process.cwd(), 'dist', 'manifest.json');
@@ -13,17 +13,21 @@ function generateManifestPlugin(targetBrowser) {
         const srcManifest = readJsonFile(srcManifestPath);
         const pkg = readJsonFile(pkgPath);
 
-        let manifest = {};
-
-        // Ensure manifest_version is correctly set
-        manifest.manifest_version = srcManifest[`{{${targetBrowser}}}.manifest_version`] || 3;
-
-        manifest['name'] = srcManifest['name'] || pkg.name;
-        manifest['version'] = srcManifest['version'] || pkg.version;
-        manifest['description'] = srcManifest['description'] || pkg.description;
+        let manifest = {
+          manifest_version: srcManifest[`{{${targetBrowser}}}.manifest_version`] || 3,
+          name: srcManifest['name'] || pkg.name,
+          version: srcManifest['version'] || pkg.version,
+          description: srcManifest['description'] || pkg.description,
+        };
 
         // Function to recursively process each property
-        function processObject(obj, targetObj) {
+        function processObject(obj: { [x: string]: any; }, targetObj: {
+          [x: string]: any;
+          manifest_version?: any;
+          name?: any;
+          version?: any;
+          description?: any;
+        }) {
           for (const key in obj) {
             const isBrowserSpecificKey = key.startsWith(`{{${targetBrowser}}}`);
             const cleanKey = key.replace(`{{${targetBrowser}}}.`, '');
@@ -53,5 +57,3 @@ function generateManifestPlugin(targetBrowser) {
     }
   };
 }
-
-module.exports = {generateManifestPlugin};

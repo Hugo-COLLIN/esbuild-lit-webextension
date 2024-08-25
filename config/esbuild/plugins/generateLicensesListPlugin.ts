@@ -1,13 +1,13 @@
-const {exec} = require("child_process");
-const fs = require('fs');
-const path = require('path');
+import {exec} from "child_process";
+import fs from 'fs';
+import path from 'path';
 
-function generateLicensesPlugin() {
+export function generateLicensesPlugin() {
   return {
     name: 'generate-licenses',
-    setup(build) {
+    setup(build: { onStart: (arg0: () => void) => void; }) {
       build.onStart(() => {
-        exec('npx license-checker --production --json', (error, stdout) => {
+        exec('npx license-checker --production --json', (error: any, stdout: string) => {
           if (error) {
             console.error(`exec error: ${error}`);
             return;
@@ -33,5 +33,3 @@ function generateLicensesPlugin() {
     }
   };
 }
-
-module.exports = {generateLicensesPlugin};
