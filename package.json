@@ -2,13 +2,12 @@
   "name": "webextension-lit",
   "version": "1.0.2",
   "scripts": {
-    "build:chrome": "cross-env TARGET=chrome APP_MODE=dev node esbuild.config.js",
-    "build:firefox": "cross-env TARGET=firefox APP_MODE=dev node esbuild.config.js",
-    "dev:chrome": "cross-env TARGET=chrome APP_MODE=dev WATCH_MODE=true node esbuild.config.js",
-    "dev:firefox": "cross-env TARGET=firefox APP_MODE=dev WATCH_MODE=true node esbuild.config.js",
+    "build:chrome": "cross-env TARGET=chrome APP_MODE=dev node esbuild.config.ts",
+    "build:firefox": "cross-env TARGET=firefox APP_MODE=dev node esbuild.config.ts",
+    "dev:chrome": "cross-env TARGET=chrome APP_MODE=dev WATCH_MODE=true node esbuild.config.ts",
+    "dev:firefox": "cross-env TARGET=firefox APP_MODE=dev WATCH_MODE=true node esbuild.config.ts",
     "zip": "node config/zip.js",
-    "prod": "cross-env TARGET=chrome APP_MODE=prod node esbuild.config.js && node config/zip.js && cross-env TARGET=firefox APP_MODE=prod node esbuild.config.js && node config/zip.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prod": "cross-env TARGET=chrome APP_MODE=prod node esbuild.config.ts && node config/zip.js && cross-env TARGET=firefox APP_MODE=prod node esbuild.config.ts && node config/zip.js",
   },
   "keywords": [],
   "author": "",
