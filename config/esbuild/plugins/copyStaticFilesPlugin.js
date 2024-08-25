@@ -8,8 +8,15 @@ const copyStaticFilesPlugin = (staticFiles) => {
       build.onEnd(() => {
         staticFiles.forEach((file) => {
           const filePath = path.resolve(process.cwd(), file);
-          const destPath = path.resolve(process.cwd(), 'dist');
-          fs.cpSync(filePath, destPath, { recursive: true });
+
+          const stat = fs.statSync(filePath);
+          if (stat.isDirectory()) {
+            const destPath = path.resolve(process.cwd(), 'dist');
+            fs.cpSync(filePath, destPath, { recursive: true });
+          } else {
+            const destPath = path.resolve(process.cwd(), 'dist', path.basename(file));
+            fs.copyFileSync(filePath, destPath);
+          }
         });
       });
     }

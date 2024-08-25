@@ -34,7 +34,7 @@ const options = {
     cleanDirectoryPlugin(outdir),
     generateManifestPlugin(targetBrowser),
     generateLicensesPlugin(),
-    copyStaticFilesPlugin(['public']),
+    copyStaticFilesPlugin(['public', 'LICENSE']),
   ],
 };
 
