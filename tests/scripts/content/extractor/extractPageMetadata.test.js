@@ -1,10 +1,12 @@
 import * as metadataFunctions from '../../../../src/scripts/content/export/extractor/extractPageMetadata';
+import { describe, it, beforeAll, afterAll, expect, vi } from 'vitest';
 
 describe('extractPageMetadata', () => {
   describe('extractPageMetadata', () => {
     beforeAll(() => {
       // Simulate window.location
-      delete global.window.location;
+      if (global.window)
+        delete global.window.location;
       global.window = Object.create(window);
       global.window.location = {
         hostname: 'example.com',
@@ -13,20 +15,20 @@ describe('extractPageMetadata', () => {
 
       // Mock getPageTitle
       // TODO: Mock getPageTitle instead of depending on getPageTitle
-      global.document.querySelector = jest.fn().mockImplementation(selector => {
+      global.document.querySelector = vi.fn().mockImplementation(selector => {
         return { innerHTML: 'Expected Page Title', innerText: 'Expected Page Title' };
       });
 
-      // metadataFunctions.getPageTitle = jest.fn().mockImplementation(() => 'Expected Page Title');
-      // jest.spyOn(metadataFunctions, 'getPageTitle').mockImplementation(() => 'Expected Page Title');
-      // jest.spyOn(metadataFunctions, 'getPageTitle').mockImplementation(() => {
+      // metadataFunctions.getPageTitle = vi.fn().mockImplementation(() => 'Expected Page Title');
+      // vi.spyOn(metadataFunctions, 'getPageTitle').mockImplementation(() => 'Expected Page Title');
+      // vi.spyOn(metadataFunctions, 'getPageTitle').mockImplementation(() => {
       //   return 'Expected Page Title';
       // });
-      // jest.spyOn(metadataFunctions, 'getPageTitle').mockReturnValue('Expected Page Title');
+      // vi.spyOn(metadataFunctions, 'getPageTitle').mockReturnValue('Expected Page Title');
     });
 
     afterAll(() => {
-      jest.restoreAllMocks();
+      vi.restoreAllMocks();
     });
 
     it('should extract metadata correctly using default values', () => {
@@ -69,7 +71,7 @@ describe('extractPageMetadata', () => {
     beforeAll(() => {
       // Simuler document.querySelector et document.title
       document.title = 'Default Title';
-      global.document.querySelector = jest.fn().mockImplementation(selector => {
+      global.document.querySelector = vi.fn().mockImplementation(selector => {
         if (selector === '[tabindex="0"]') return { innerHTML: 'Page Title&nbsp;', innerText: 'Page Title ' };
         return null;
       });

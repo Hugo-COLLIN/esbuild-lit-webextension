@@ -8,7 +8,8 @@
     "dev:firefox": "cross-env TARGET=firefox APP_MODE=dev WATCH_MODE=true node esbuild.config.js",
     "zip": "node config/zip.js",
     "prod": "cross-env TARGET=chrome APP_MODE=prod node esbuild.config.js && node config/zip.js && cross-env TARGET=firefox APP_MODE=prod node esbuild.config.js && node config/zip.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest",
+    "test:watch": "vitest --watch"
   },
   "keywords": [],
   "author": "",
@@ -16,12 +17,14 @@
   "description": "",
   "devDependencies": {
     "@types/chrome": "^0.0.270",
+    "@vitest/browser": "^2.0.5",
     "adm-zip": "^0.5.15",
     "chokidar": "^3.6.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.23.1",
     "lit": "^3.2.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   },
   "dependencies": {
     "dompurify": "^3.1.6",
