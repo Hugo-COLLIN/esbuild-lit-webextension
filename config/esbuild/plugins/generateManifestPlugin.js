@@ -13,14 +13,12 @@ function generateManifestPlugin(targetBrowser) {
         const srcManifest = readJsonFile(srcManifestPath);
         const pkg = readJsonFile(pkgPath);
 
-        let manifest = {};
-
-        // Ensure manifest_version is correctly set
-        manifest.manifest_version = srcManifest[`{{${targetBrowser}}}.manifest_version`] || 3;
-
-        manifest['name'] = srcManifest['name'] || pkg.name;
-        manifest['version'] = srcManifest['version'] || pkg.version;
-        manifest['description'] = srcManifest['description'] || pkg.description;
+        let manifest = {
+          manifest_version: srcManifest[`{{${targetBrowser}}}.manifest_version`] || 3,
+          name: srcManifest['name'] || pkg.name,
+          version: srcManifest['version'] || pkg.version,
+          description: srcManifest['description'] || pkg.description,
+        };
 
         // Function to recursively process each property
         function processObject(obj, targetObj) {
