@@ -82,11 +82,14 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-
-.idea
+# IntelliJ
+.idea/
 *.iml
+
+# Build
 dist/
 
+# Sensitive files
 *config.json
 *publish.json
 *key.json
