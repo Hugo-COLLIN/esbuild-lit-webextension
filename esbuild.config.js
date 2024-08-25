@@ -1,9 +1,9 @@
 const esbuild = require('esbuild');
-const chokidar = require('chokidar');
 const {generateManifestPlugin} = require("./config/esbuild/plugins/generateManifestPlugin");
 const {generateLicensesPlugin} = require("./config/esbuild/plugins/generateLicensesListPlugin");
 const {copyStaticFilesPlugin} = require("./config/esbuild/plugins/copyStaticFilesPlugin");
 const {cleanDirectoryPlugin} = require("./config/esbuild/plugins/cleanDirectoryPlugin");
+const {watchStatic} = require("./config/esbuild/watchStatic");
 
 const outdir = 'dist';
 const targetBrowser = process.env.TARGET || 'chrome';
@@ -57,7 +57,7 @@ async function watch() {
   console.log('Watching for file changes...');
 
   // Watch for changes in the 'public' folder
-  watchDir(ctx);
+  watchStatic(ctx);
 
   // --- No way to list the output files from `watch` mode ---
   // await ctx.rebuild().then(result => {
@@ -77,27 +77,4 @@ async function watch() {
   // });
 }
 
-function watchDir(ctx) {
-  const watcher = chokidar.watch('public', {
-    ignoreInitial: true, // Ignore initial 'add' events on startup
-  });
 
-  let rebuildPending = false;
-
-  watcher.on('all', async (event, path) => {
-    if (!rebuildPending) {
-      rebuildPending = true;
-      console.log(`Detected ${event} on ${path}, scheduling rebuild...`);
-      setTimeout(async () => {
-        try {
-          await ctx.rebuild();
-          console.log('Rebuild completed successfully');
-        } catch (error) {
-          console.error('Rebuild failed:', error);
-        } finally {
-          rebuildPending = false;
-        }
-      }, 100); // Debounce delay to batch file changes
-    }
-  });
-}
