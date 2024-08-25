@@ -51,7 +51,7 @@ Your feedback and contributions are invaluable. Here's how you can help:
 - **Suggest Features**: Have ideas for new features or improvements? Join the discussion on the [discussions page](https://github.com/Hugo-COLLIN/SaveMyPhind-conversation-exporter/discussions).
 - **Code Contributions**: Skilled in coding? Fork this repository and submit pull requests to help improve the extension.
 
-This project is licensed under the [RMD-C v1.0 License](LICENSE.txt). Please review the license for more details.
+This project is licensed under the [RMD-C v1.0 License](LICENSE). Please review the license for more details.
 
 <br>
 
