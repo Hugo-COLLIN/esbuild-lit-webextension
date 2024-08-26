@@ -1,6 +1,5 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-// import '../scripts/pages/shoelace-styles';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/alert/alert.js';
@@ -37,7 +36,7 @@ export class ExportOptions extends LitElement {
           align-items: center;
           justify-content: center;
       }
-      
+
       #options-fieldset {
           padding: 0 0 1rem 0;
           width: 100%;
