@@ -1,5 +1,5 @@
 import {Modal} from "./Modal";
-import appInfos from "../../../../../../infos.json";
+import appInfos from "../../../../../../data/infos.json";
 import {convertUpdateNotes} from "../../../converter/convertUpdateNotes";
 import {defineStoreLink} from "../../../../data/defineStoreLink";
 

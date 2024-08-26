@@ -1,4 +1,4 @@
-import appInfos from "../../../infos.json";
+import appInfos from "../../../data/infos.json";
 
 export function EXTRACTOR_FALLBACK_ACTION() {
   return (error) => {
