@@ -26,7 +26,7 @@ export function buildContextMenu() {
   chrome.contextMenus.onClicked.addListener((info, tab) => {
     switch (info.menuItemId) {
       case "openOptions":
-        createWindow("pages/options.html");
+        createWindow("options.html");
         break;
       case "feedback":
         chrome.tabs.create({url: defineStoreLink().url});

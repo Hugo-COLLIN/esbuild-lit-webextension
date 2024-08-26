@@ -3,7 +3,13 @@
   "version": "2.9.7",
   "license": "RMD-C v1.0 License",
   "author": "Hugo COLLIN",
-  "keywords": ["chatbots", "export", "save", "markdown", "webextension"],
+  "keywords": [
+    "chatbots",
+    "export",
+    "save",
+    "markdown",
+    "webextension"
+  ],
   "scripts": {
     "build:chrome": "cross-env TARGET=chrome APP_MODE=dev node esbuild.config.js",
     "build:firefox": "cross-env TARGET=firefox APP_MODE=dev node esbuild.config.js",
@@ -27,6 +33,7 @@
     "vitest": "^2.0.5"
   },
   "dependencies": {
+    "@shoelace-style/shoelace": "^2.16.0",
     "dompurify": "^3.1.6",
     "js-yaml": "^4.1.0",
     "showdown": "^2.1.0",
