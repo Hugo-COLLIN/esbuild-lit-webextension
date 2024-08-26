@@ -1,12 +1,12 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import './shoelace-styles';
+import '../scripts/pages/shoelace-styles';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/components/alert/alert.js';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
 import showdown from 'showdown';
-import appInfos from '../../infos.json';
+import appInfos from '../infos.json';
 
 @customElement('export-options')
 export class ExportOptions extends LitElement {

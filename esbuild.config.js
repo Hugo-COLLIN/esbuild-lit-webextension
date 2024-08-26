@@ -11,7 +11,7 @@ const appMode = process.env.APP_MODE || 'dev';
 const watchMode = process.env.WATCH_MODE || false; // Flag for watch mode
 
 const options = {
-  entryPoints: ['src/background.js', "src/tab.js", 'src/scripts/pages/ExportOptions.ts', 'src/scripts/pages/options.html'],
+  entryPoints: ['src/entrypoints/background.js', "src/entrypoints/tab.js", 'src/entrypoints/pages.ts', 'src/entrypoints/options.html'],
   bundle: true,
   outdir: outdir,
   minify: false,
