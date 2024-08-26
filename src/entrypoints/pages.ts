@@ -1,3 +1,6 @@
+import '@shoelace-style/shoelace/dist/themes/light.css';
+import '@shoelace-style/shoelace/dist/themes/dark.css';
+
 const loadComponents = async () => {
   const { ExportOptions } = await import('../interfaces/ExportOptions');
 }
